@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    #wrap {
+
+        text-align: center;
+
+        width: 500px;
+
+        margin: 100px auto;
+
+        position: relative;
+
+    }
+
+    #img{
+
+        width: 100px;
+
+        height: 100px;
+
+        margin-left: 40px;
+
+        margin-top: 20px;
+
+    }
+
+    #ul1 {
+
+        width: 303px;
+
+        height: 303px;
+
+        margin: 50px auto;
+
+        padding: 0;
+
+        border-top: 1px solid black;
+
+        border-left: 1px solid black;
+
+    }
+
+    #ul1 li {
+
+        float: left;
+
+        border-right: 1px solid black;
+
+        border-bottom: 1px solid black;
+
+        list-style: none;
+
+        width: 100px;
+
+        height: 100px;
+
+        line-height: 100px;
+
+        text-align: center;
+
+    }
+
+    #tooltips {
+
+        width: 100%;
+
+        height: 100%;
+
+        background-color: rgba(0, 0, 0, 0.5);
+
+        position: absolute;
+
+        top: 0;
+
+        z-index: 999;
+
+        display: none;
+
+    }
+
+    #info {
+
+        width: 400px;
+
+        height: 200px;
+
+        background-color: white;
+
+        margin: 150px auto;
+
+        position: relative;
+
+    }
+
+    #info .title {
+
+        width: 100%;
+
+        height: 40px;
+
+        background-color: #009f95;
+
+        line-height: 40px;
+
+        color: white;
+
+        padding-left: 20px;
+
+        box-sizing: border-box;
+
+    }
+
+    #info .btn button {
+
+        background-color: #009f95;
+
+        color: white;
+
+        outline: none;
+
+        font-size: 10px;
+
+        width: 60px;
+
+        height: 30px;
+
+        margin-left: 300px;
+
+    }
+
+    #info .content {
+
+        position: absolute;
+
+        top: 95px;
+
+        left: 190px;
+
+        box-sizing: border-box;
+
+    }
+</style>
+<body>
+<div id="wrap">
+
+    <button id="btn">开始抽奖</button>
+
+    <ul id="ul1">
+
+        <li>电脑</li>
+
+        <li>100万</li>
+
+        <li>很遗憾~</li>
+
+        <li>很遗憾~</li>
+
+        <li>键盘</li>
+
+        <li>iphoneX</li>
+
+        <li>100元购物卷</li>
+
+        <li>王者2日游</li>
+
+        <li>很遗憾~</li>
+
+    </ul>
+
+</div>
+
+<!--抽奖内容  end-->
+
+<!-- 提示信息 -->
+
+<div id="tooltips">
+
+    <div id="info">
+
+        <div class="title">信息</div>
+
+        <div class="content" id="content"></div>
+
+        <img id="img" src="Demo/img/love.png"/>
+
+        <div class="btn">
+
+            <button id="confirm">确定</button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    var oBtn = document.getElementById('btn');
+
+    var aLi = document.getElementsByTagName('li');
+
+    var oTooltips = document.getElementById('tooltips');
+
+    var oConfirm = document.getElementById('confirm');
+
+    var oContent = document.getElementById('content');
+
+    var oImg = document.getElementById('img');
+
+    var nowIndex = 0;//定义滚动指定的li
+
+    oBtn.onclick = function(){
+
+        var number = getRandom(10,28);//获取中奖随机号码
+
+//抽奖背景切换
+
+        var scrollLi = setInterval(function(){
+
+
+            colorChange(aLi,nowIndex);
+
+            nowIndex++;
+
+            //中奖or为中奖内容设置
+
+            if(nowIndex==number)
+
+            {
+
+                clearInterval(scrollLi);
+
+                oTooltips.style.display = "block";
+
+                if(aLi[nowIndex%9].innerHTML=="很遗憾~"){
+
+                    oContent.innerHTML ='sorry~ 大明&nbsp;' + aLi[nowIndex%9].innerHTML;
+
+                    oImg.src="img/fool.png"
+
+                    nowIndex = 0;
+
+                }else{
+
+                    oContent.innerHTML ='恭喜~ 大明 获得了' + aLi[nowIndex%9].innerHTML;
+
+                    oImg.src="img/love.png"
+
+                    nowIndex = 0;
+
+                }
+
+            }
+
+        },100)
+
+    };
+
+    //改变颜色
+
+    function colorChange(aLi,nowIndex){
+
+//把所有li背景设置为白色
+
+        for (let i= 0;i<aLi.length;i++) {
+
+            aLi[i].style.backgroundColor = "white";
+
+        }
+
+        //背景
+
+        aLi[(nowIndex+1)%9].style.backgroundColor = "red";
+
+    }
+
+    //点击确认后消失
+
+    oConfirm.onclick = function(){
+
+        oTooltips.style.display = "none";
+
+    }
+
+    //获取随机获奖数字
+
+    function getRandom(min,max){
+
+        return Math.floor(Math.random()*(max-min+1) + min)
+
+    }
+</script>
+</body>
+</html>
+

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>加背景</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Aleo");
+
+        :root {
+            font-family: "Aleo", sans-serif;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            background: rgb(119, 13, 13);
+            background: radial-gradient( circle, rgba(119, 13, 13, 0.92) 64%, rgba(0, 0, 0, 0.6) 100% );
+            overflow: hidden;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .label {
+            font-size: 2.2rem;
+            background: url("img/6368077651977322227241996.png");
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: moveBg 30s linear infinite;
+        }
+
+        @keyframes moveBg {
+            0% {
+                background-position: 0% 30%;
+            }
+
+            100% {
+                background-position: 1000% 500%;
+            }
+        }
+
+        .middle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            user-select: none;
+        }
+
+        .time {
+            color: #d99c3b;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+        }
+
+        .time span {
+            padding: 0 14px;
+            font-size: 0.8rem;
+        }
+
+        .time span div {
+            font-size: 3rem;
+        }
+
+        @media (max-width: 740px) {
+            .label {
+                font-size: 1.7rem;
+            }
+
+            .time span {
+                padding: 0 16px;
+                font-size: 0.6rem;
+            }
+
+            .time span div {
+                font-size: 2rem;
+            }
+        }
+        .wrap {
+            position: absolute;
+            margin: 0 auto;
+        }
+
+        .container {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            top: -300px;
+            left: -300px;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 auto;
+        }
+
+        .tooltips {
+            position: relative;
+            display: none;
+            margin: 420px auto;
+            width: 500px;
+            height: 200px;
+            border: 1px solid #000000;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: 301;
+        }
+
+        .title {
+            width: 100%;
+            height: 50px;
+            margin-top: 0;
+            font-size: 20px;
+            line-height: 50px;
+            background-color: antiquewhite;
+        }
+
+        .content {
+            position: absolute;
+            width: auto;
+            top: 90px;
+            left: 185px;
+            font-size: 24px;
+
+        }
+
+        .confirm {
+            position: relative;
+            top: 150px;
+            left: 400px;
+            width: 70px;
+            height: 30px;
+            border: 1px solid #FF9999;
+            border-radius: 20px;
+            background-color: #FF9999;
+        }
+
+        .block {
+            width: 33.3%;
+            height: 33.3%;
+            outline: 1px solid #000000;
+            text-align: center;
+            line-height: 200px;
+            font-size: 24px;
+        }
+
+        .clickWin {
+            position: relative;
+            margin: -100px -100px;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            line-height: 200px;
+            font-size: 24px;
+            z-index: 100;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .clickStop {
+            position: absolute;
+            display: none;
+            border: 1px solid #000000;
+            margin: -100px -100px;
+            width: 198px;
+            height: 199px;
+            text-align: center;
+            line-height: 200px;
+            font-size: 24px;
+            z-index: 90;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .btnOk {
+            position: absolute;
+            top: 0;
+        }
+
+
+    </style>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Aleo");
+
+        :root {
+            font-family: "Aleo", sans-serif;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            background: rgb(119, 13, 13);
+            background: radial-gradient( circle, rgba(119, 13, 13, 0.92) 64%, rgba(0, 0, 0, 0.6) 100% );
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .label {
+            font-size: 2.2rem;
+            background: url("img/6368077651977322227241996.png");
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: moveBg 30s linear infinite;
+        }
+
+        @keyframes moveBg {
+            0% {
+                background-position: 0% 30%;
+            }
+
+            100% {
+                background-position: 1000% 500%;
+            }
+        }
+
+        .middle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            user-select: none;
+        }
+
+        .time {
+            color: #d99c3b;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+        }
+
+        .time span {
+            padding: 0 14px;
+            font-size: 0.8rem;
+        }
+
+        .time span div {
+            font-size: 3rem;
+        }
+
+        @media (max-width: 740px) {
+            .label {
+                font-size: 1.7rem;
+            }
+
+            .time span {
+                padding: 0 16px;
+                font-size: 0.6rem;
+            }
+
+            .time span div {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="middle">
+
+    <div id="wrap" class="wrap">
+        <div class="container" id="container">
+            <div class="block" id="block"></div>
+        </div>
+        <div class="clickWin" id="btnWin">点击抽奖</div>
+        <div class="tooltips" id="tooltips">
+            <div class="title">
+                 <span style="margin-left: 30px">
+                     信息
+                 </span>
+            </div>
+            <div class="content" id="content">
+            </div>
+            <img
+                    id="img"
+                    src="img/timg.jpg"
+                    style="width: 100px;height: 100px;margin: 20px 30px;"
+            >
+            <div class="btnOk" id="btnOk">
+                <button id="confirm" class="confirm">
+                    确定
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="clickStop" id="Cancel">点击停止</div>
+    <div class="list" id="list">
+    </div>
+
+</div>
+
+
+
+<script>
+    let btnWin = document.getElementById("btnWin");
+    let block = document.getElementsByClassName("block");
+    let oTooltips = document.getElementById("tooltips");
+    let confirm = document.getElementById("confirm");
+    let oContent = document.getElementById("content");
+    let btnCancel = document.getElementById("Cancel");
+    let oli = document.getElementsByTagName("li");
+    let array = [
+        {
+            key: 0,
+            value: "一等奖",
+            show: false
+        },
+        {
+            key: 1,
+            value: "二等奖",
+            show: false
+        },
+        {
+            key: 2,
+            value: "三等奖",
+            show: false
+        },
+        {
+            key: 3,
+            value: "四等奖",
+            show: false
+        },
+        {
+            key: 4,
+            value: "",
+            show: true,
+        },
+        {
+            key: 5,
+            value: "五等奖",
+            show: false
+        },
+        {
+            key: 6,
+            value: "六等奖",
+            show: false
+        },
+
+
+        {
+            key: 7,
+            value: "七等奖",
+            show: false
+        },
+        {
+            key: 8,
+            value: "谢谢参与",
+            show: false
+        },
+    ];
+    let arr = [0, 1, 2, 5, 8, 7, 6, 3];
+    let message = [];
+
+    let nowIndex = 0;//定义滚动指定的li
+    let stopTimer;
+    let around;
+    let fast = 3 * (Math.random() * 0.5 + 1);
+    console.log(fast);
+    let time = 300;
+    const fastStop = 100;
+    const fastMaxStop = 400;
+
+    // 取消循环滚动
+    const cancelAround = () => {
+        if (around) {
+            clearInterval(around);
+        }
+        around = setInterval(interval('cancel'), time);
+    };
+    // 色彩变幻
+    const test = (index) => {
+        [].forEach.call(block, (item) => {
+            item.style.backgroundColor = 'rgba(119, 13, 13,0)';
+        });
+
+        for (let t = 0; t < arr.length; t++) {
+            let arrItem = arr[t];
+            // console.log(block[arrItem].innerHTML);
+            // console.log(index);
+            // console.log(t);
+            if (t === index) {
+                block[arrItem].style.backgroundColor = "#FFC0CB";
+                if (block[arrItem].innerHTML === "谢谢参与") {
+                    // oTooltips.style.display = "block";
+                    oContent.innerHTML = "谢谢您的参与，请再接再厉";
+                } else {
+                    // oTooltips.style.display = "block";
+                    oContent.innerHTML = "恭喜您获得了" + block[arrItem].innerHTML;
+                }
+            }
+        }
+    };
+
+    // 变幻间隔
+    const interval = (type) => {
+        return function () {
+            // 当循环数大于等于九宫格数组长度时，置为0
+            if (nowIndex >= arr.length) {
+                nowIndex = 0;
+                // 速度加快,保持循环
+                if (type === 'next') {
+                    if (time > fastStop) {
+                        time = time / fast;
+                        if (around) {
+                            clearInterval(around);
+                        }
+                        console.log(time);
+                        around = setInterval(interval(type), time);
+                        // console.log(around);
+                    }
+                }
+                // 点击停止键，速度减慢
+                else {
+                    // console.log(time);
+                    // console.log(fastMaxStop);
+                    // 如果间隔时间小于等于最大间隔时间，则执行减速
+                    if (time <= fastMaxStop) {
+                        time = time * fast / 2;
+                        if (around) {
+                            clearInterval(around);
+                        }
+                        // 当间隔时间大于最大间隔时间，则在3秒后执行停止函数
+                        if (time > fastMaxStop) {
+                            setTimeout(() => {
+                                clearInterval(around);
+                                oTooltips.style.display = "block";
+                                btnWin.style.zIndex = "300";
+                                // btnCancel.style.display = "none";
+                                // oContent.innerHTML = block[nowIndex].innerHTML;
+                            }, 3000);
+                        }
+                        around = setInterval(interval(type), time);
+
+                    }
+                }
+            }
+            test(nowIndex);
+            // 循环数增加
+            nowIndex++;
+        }
+    };
+
+
+    // 渲染div
+    window.onload = function () {
+        let html = "";
+        for (let i = 0; i < array.length; i++) {
+            array[i].index = i;
+            array[4].onclick = function () {
+                // alert(this.index+index.innerHTML);
+                // console.log(this.index + index.innerHTML);
+            };
+            html += "<div class='block'>" + array[i].value + "</div>";
+            document.getElementById("container").innerHTML = html;
+            block[i].index = i;
+            block[i].onclick = function () {
+                alert(this.index);
+            }
+        }
+    };
+
+    function display(data) {
+        let htmlText = "";
+        htmlText = message.join("<ul></ul>");
+        document.write("<ul><li>" + htmlText + "</li></ul>");
+    }
+
+    // 点击执行
+    // 按钮变幻
+    btnWin.onclick = function () {
+        around = setInterval(interval('next'), time);
+        btnCancel.style.display = "block";
+        btnCancel.style.zIndex = "200";
+        btnCancel.style.backgroundColor = "#ffffff";
+    };
+    // 点击停止执行
+    btnCancel.onclick = () => {
+        if (around) {
+            clearInterval(around);
+        }
+        cancelAround();
+    };
+    confirm.onclick = function () {
+        oTooltips.style.display = "none";
+        btnWin.style.display = "none";
+        btnCancel.style.display = "block";
+    }
+
+</script>
+<script>
+    class Snowflake {
+        constructor() {
+            this.x = 0;
+            this.y = 0;
+            this.vx = 0;
+            this.vy = 0;
+            this.radius = 0;
+            this.alpha = 0;
+
+            this.reset();
+        }
+
+        reset() {
+            this.x = this.randBetween(0, window.innerWidth);
+            this.y = this.randBetween(0, -window.innerHeight);
+            this.vx = this.randBetween(-3, 3);
+            this.vy = this.randBetween(2, 5);
+            this.radius = this.randBetween(1, 4);
+            this.alpha = this.randBetween(0.1, 0.9);
+        }
+
+        randBetween(min, max) {
+            return min + Math.random() * (max - min);
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.y + this.radius > window.innerHeight) {
+                this.reset();
+            }
+        }
+    }
+
+    class Snow {
+        constructor() {
+            this.canvas = document.createElement("canvas");
+            this.ctx = this.canvas.getContext("2d");
+
+            document.body.appendChild(this.canvas);
+
+            window.addEventListener("resize", () => this.onResize());
+            this.onResize();
+            this.updateBound = this.update.bind(this);
+            requestAnimationFrame(this.updateBound);
+
+            this.createSnowflakes();
+        }
+
+        onResize() {
+            this.width = window.innerWidth;
+            this.height = window.innerHeight;
+            this.canvas.width = this.width;
+            this.canvas.height = this.height;
+        }
+
+        createSnowflakes() {
+            const flakes = window.innerWidth / 4;
+
+            this.snowflakes = [];
+
+            for (let s = 0; s < flakes; s++) {
+                this.snowflakes.push(new Snowflake());
+            }
+        }
+
+        update() {
+            this.ctx.clearRect(0, 0, this.width, this.height);
+
+            for (let flake of this.snowflakes) {
+                flake.update();
+
+                this.ctx.save();
+                this.ctx.fillStyle = "#FFF";
+                this.ctx.beginPath();
+                this.ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+                this.ctx.closePath();
+                this.ctx.globalAlpha = flake.alpha;
+                this.ctx.fill();
+                this.ctx.restore();
+            }
+            requestAnimationFrame(this.updateBound);
+        }
+    }
+
+    new Snow();
+
+
+    ////////////////////////////////////////////////////////////
+
+    // Simple CountDown Clock
+
+    const comingdate = new Date("Jan 1, 2019 00:00:00");
+
+    const d = document.getElementById("d");
+    const h = document.getElementById("h");
+    const m = document.getElementById("m");
+    const s = document.getElementById("s");
+
+    const countdown = setInterval(() => {
+        const now   = new Date();
+        const des   = comingdate.getTime() - now.getTime();
+        // const days  = Math.floor(des / (1000 * 60 * 60 * 24));
+        // const hours = Math.floor((des % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        // const mins  = Math.floor((des % (1000 * 60 * 60)) / (1000 * 60));
+        // const secs  = Math.floor((des % (1000 * 60)) / 1000);
+
+
+
+        if (x <= 0) clearInterval(x);
+    }, 1000);
+
+    const getTrueNumber = x => (x < 10 ? "0" + x : x);
+</script>
+</body>
+
+</html>
