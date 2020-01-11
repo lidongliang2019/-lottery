@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>逻辑完成</title>
+    <script src="jquery-3.4.1/jquery-3.4.1.min.js"></script>
     <style>
         body {
             overflow: hidden;
@@ -37,6 +38,18 @@
             z-index: 301;
         }
 
+        .login {
+            position: relative;
+            display: block;
+            margin: 290px auto;
+            width: 500px;
+            height: 200px;
+            /*border: 1px solid #000000;*/
+            border-radius: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: 301;
+        }
+
         .title {
             width: 100%;
             height: 50px;
@@ -52,9 +65,13 @@
             position: absolute;
             width: auto;
             top: 90px;
-            left: 185px;
+            left: 165px;
             font-size: 24px;
+        }
 
+        #loginContent {
+            font-size: 20px;
+            left: 135px;
         }
 
         .confirm {
@@ -67,6 +84,16 @@
             border: 1px solid #d89305;
             border-radius: 20px;
             background-color: rgba(252, 213, 9, 0.9);
+        }
+
+        #inputValue {
+            border: 1px solid #d89305;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        #inputValue:hover {
+            border: 1px solid #c33c3d;
         }
 
         .block {
@@ -143,7 +170,7 @@
             rgba(229, 172, 142, 0));
             transform: rotate(60deg) translate(-5em, 9em);
             animation: sheen 2s infinite;
-            -webkit-animation: sheen 2s infinite;
+            /*-webkit-animation: sheen 2s infinite;*/
         }
 
         @keyframes sheen {
@@ -183,7 +210,6 @@
             height: 500px;
             border-radius: 5px;
             background-color: #f9df9f;
-
         }
 
         .title_one {
@@ -266,23 +292,23 @@
             z-index: 300;
         }
 
-        #list1 li:nth-of-type(odd) {
+        #list_left li:nth-of-type(odd) {
             background: #fdedcd;
         }
 
-        #list1 li:nth-of-type(even) {
+        #list_left li:nth-of-type(even) {
             background: #f0e1b5;
         }
 
-        #list2 li:nth-of-type(odd) {
+        #list_right li:nth-of-type(odd) {
             background: #fdedcd;
         }
 
-        #list2 li:nth-of-type(even) {
+        #list_right li:nth-of-type(even) {
             background: #f0e1b5;
         }
 
-        #list1 {
+        #list_left {
             position: absolute;
             width: 45%;
             top: -25px;
@@ -291,7 +317,7 @@
             text-align: center;
         }
 
-        #list2 {
+        #list_right {
             position: absolute;
             width: 45%;
             top: -25px;
@@ -300,8 +326,14 @@
             text-align: center;
         }
 
+
+        .list_name {
+            text-align: center;
+        }
+
         .runHorseLight {
             position: absolute;
+            display: block;
             width: 40px;
             height: 40px;
             background-color: transparent;
@@ -317,7 +349,8 @@
             transform: rotate(90deg);
 
         }
-        #verticalUl{
+
+        #verticalUl {
             position: inherit;
             top: 140px;
             left: 458px;
@@ -325,7 +358,8 @@
             width: auto;
 
         }
-        #rowUlRight{
+
+        #rowUlRight {
             position: inherit;
             top: 340px;
             left: 700px;
@@ -333,14 +367,16 @@
             width: auto;
             transform: rotate(90deg);
         }
-        #verticalUlRight{
+
+        #verticalUlRight {
             position: inherit;
             top: 140px;
             left: 895px;
             height: auto;
             width: auto;
         }
-        #illumination:nth-child(2n){
+
+        #illumination:nth-child(2n) {
             display: block;
             width: 9px;
             height: 9px;
@@ -351,7 +387,8 @@
             animation: twinkling 1.2s infinite ease-in-out;
             animation-delay: 0.3s;
         }
-        #illumination{
+
+        #illumination {
             display: block;
             width: 9px;
             height: 9px;
@@ -361,21 +398,22 @@
             margin: 40px;
             animation: twinkling 1.2s infinite ease-in-out;
         }
-        @keyframes twinkling{
-            0%{
+
+        @keyframes twinkling {
+            0% {
                 background: #FF00FF;
 
             }
-            25%{
+            25% {
                 background: #00FF00;
 
             }
-            75%{
-                background:	#DC143C;
+            75% {
+                background: #DC143C;
 
             }
-            100%{
-                background:#FFD700;
+            100% {
+                background: #FFD700;
 
             }
         }
@@ -384,7 +422,6 @@
 </head>
 
 <body>
-
 <div id="wrap">
     <div class="container" id="container">
         <div class="block" id="block"></div>
@@ -404,8 +441,37 @@
                 style="width: 100px;height: 100px;margin: 20px 30px;"
         >
         <div class="btnOk" id="btnOk">
-            <button id="confirm" class="confirm">
-                确定
+            <button id="confirm" class="confirm" type="submit">
+                下一位
+            </button>
+        </div>
+
+    </div>
+
+    <div class="login" id="login">
+        <div class="title">
+                 <span style="margin-left: 30px">
+                     登录
+                 </span>
+        </div>
+
+        <div class="content" id="loginContent">
+            姓名:
+            <input id="inputValue" placeholder="请输入您的姓名" required="required" autofocus="autofocus"
+                   style=" position:relative; top:-3px; height:25px;" minlength="2" size="26" list="cars">
+            <datalist id="cars" style="background-color: #f9df9f">
+
+            </datalist>
+        </div>
+        <!--            <img-->
+        <!--                    id="userImg"-->
+        <!--                    src="img/timg.jpg"-->
+        <!--                    style="width: 100px;height: 100px;margin: 20px 30px;"-->
+        <!--            >-->
+        <!--            头像预留-->
+        <div class="btnOk" id="loginOk">
+            <button id="loginBtn" class="confirm" disabled="disabled">
+                加入
             </button>
         </div>
 
@@ -436,8 +502,6 @@
 
 </div>
 
-
-
 <div class="clickStop" id="Cancel">点击停止</div>
 <div class="list" id="list">
     <div class="title_one">
@@ -457,45 +521,29 @@
         <div style="position: relative;left: 203px;top: 5px;">奖项</div>
     </div>
     <div class="list_content">
-        <ul id="list1">
-            <li >11</li>
-            <li>22</li>
-            <li>22</li>
-            <li>22</li>
-            <li>22</li>
-            <li>22</li>
-            <li>22</li>
-            <li>&thinsp;</li>
-            <li>&thinsp;</li>
-            <li>&thinsp;</li>
+        <ul id="list_left">
+            <li class="list_name">
+            </li>
         </ul>
-        <ul id="list2">
-            <li id="list3">yi</li>
-            <li>22</li>
-            <li>22</li>
-            <li>22</li>
-            <li>22</li>
-            <li>22</li>
-            <li>&thinsp;</li>
-            <li>&thinsp;</li>
-            <li>&thinsp;</li>
-            <li>&thinsp;</li>
+        <ul id="list_right">
+            <li class="list_win" id="list_win">
+            </li>
         </ul>
     </div>
 </div>
 
 
 <script>
+
     let btnWin = document.getElementById("btnWin");
-    let illumination = document.getElementsByClassName("illumination");
-    let illuminationUl = document.getElementById("illuminationUl");
     let block = document.getElementsByClassName("block");
     let oTooltips = document.getElementById("tooltips");
     let confirm = document.getElementById("confirm");
     let oContent = document.getElementById("content");
     let btnCancel = document.getElementById("Cancel");
-    let oli = document.getElementsByTagName("li");
-    let listWin = document.getElementById("list3");
+    let loginBtn = document.getElementById("loginBtn");
+    let login = document.getElementById("login");
+    let inputValue = document.getElementById("inputValue");
     let array = [
         {
             key: 0,
@@ -532,8 +580,6 @@
             value: "六等奖",
             show: false
         },
-
-
         {
             key: 7,
             value: "七等奖",
@@ -545,17 +591,19 @@
             show: false
         },
     ];
+    let name = [];
+    let winData = [];
     let arr = [0, 1, 2, 5, 8, 7, 6, 3];
-    let message = [];
-
     let nowIndex = 0;//定义滚动指定的li
     let stopTimer;
     let around;
     let fast = 3 * (Math.random() * 0.5 + 1);
-    console.log(fast);
     let time = 300;
+    let list;
+    let html = "";
     const fastStop = 100;
     const fastMaxStop = 400;
+    xmlhttp = new XMLHttpRequest();
 
     // 取消循环滚动
     const cancelAround = () => {
@@ -563,13 +611,15 @@
             clearInterval(around);
         }
         around = setInterval(interval('cancel'), time);
+
     };
     // 色彩变幻
+
     const test = (index) => {
         [].forEach.call(block, (item) => {
             item.style.backgroundColor = '#fcd500';
         });
-
+        // var winList;
         for (let t = 0; t < arr.length; t++) {
             let arrItem = arr[t];
             if (t === index) {
@@ -580,12 +630,24 @@
                     oContent.innerHTML = "谢谢您的参与，请再接再厉";
                 } else {
                     oContent.innerHTML = "恭喜您获得了" + block[arrItem].innerHTML;
-                    listWin.push = block[arrItem].innerHTML;
                 }
+                winList = () => {
+                    let html = "";
+                    winData.push(block[arrItem].innerHTML);
+                    let x = document.getElementsByClassName("list_win");
+                    x.innerHTML = block[arrItem].innerHTML;
+                    console.log(winData);
+                    // join
+                    for (let i = 0; i < winData.length; i++) {
+                        html += "<li id='list_win'>" + winData[i] + "</li>";
+                        document.getElementById("list_right").innerHTML = html;
+                    }
+                };
+                list = winList;
             }
-
         }
     };
+
 
     // 变幻间隔
     const interval = (type) => {
@@ -602,13 +664,10 @@
                         }
                         console.log(time);
                         around = setInterval(interval(type), time);
-                        // console.log(around);
                     }
                 }
                 // 点击停止键，速度减慢
                 else {
-                    // console.log(time);
-                    // console.log(fastMaxStop);
                     // 如果间隔时间小于等于最大间隔时间，则执行减速
                     if (time <= fastMaxStop) {
                         time = time * fast / 2;
@@ -621,12 +680,10 @@
                                 clearInterval(around);
                                 oTooltips.style.display = "block";
                                 btnWin.style.zIndex = "300";
-                                // btnCancel.style.display = "none";
-                                // oContent.innerHTML = block[nowIndex].innerHTML;
+                                list();
                             }, 3000);
                         }
                         around = setInterval(interval(type), time);
-
                     }
                 }
             }
@@ -634,29 +691,19 @@
             // 循环数增加
             nowIndex++;
         }
+
     };
 
+
     // 渲染div
-    window.onload = function () {
-        let html = "";
+
+    function blockBack() {
         for (let i = 0; i < array.length; i++) {
-            // array[i].index = i;
-            array[4].onclick = function () {
-                // alert(this.index+index.innerHTML);
-                // console.log(this.index + index.innerHTML);
-            };
             html += "<div class='block'>" + array[i].value + "</div>";
             document.getElementById("container").innerHTML = html;
-            // block[i].index = i;
-            block[i].onclick = function () {
-                alert(this.index);
-            }
         }
-        light();
-    };
-    // function setLi(item) {
-    //     let li = ''
-    // }
+    }
+    blockBack();
 
     // 渲染小圆灯
     function light() {
@@ -668,18 +715,54 @@
             document.getElementById("rowUlRight").innerHTML = html;
             document.getElementById("verticalUlRight").innerHTML = html;
         }
-        illuminationUl.innerHTML = html;
     }
 
-    // function display(data) {
-    //     let htmlText = "";
-    //     htmlText = message.join("<ul></ul>");
-    //     document.write("<ul><li>" + htmlText + "</li></ul>");
+    light();
+
+    loginBtn.addEventListener('click', loginBn, false);
+    confirm.addEventListener('click', nextPerson, false);
+    inputValue.addEventListener('input', inputInValue, false);
+    inputValue.addEventListener("change", inputInValue, false);
+
+    function loginBn() {
+        login.style.display = "block";
+        let inputValue = document.getElementById("inputValue").value;
+        let html = "";
+        name.push(inputValue);
+        let x = document.getElementsByClassName("list_name");
+        x.innerHTML = name;
+        for (let i = 0; i < name.length; i++) {
+            html += "<li>" + name[i] + "</li>";
+            document.getElementById("list_left").innerHTML = html;
+        }
+        if (inputValue !== 1) {
+            loginBtn.disabled = false;
+        }
+        login.style.display = "none";
+    }
+
+    function nextPerson() {
+        login.style.display = "block";
+        oTooltips.style.display = "none";
+        btnCancel.style.display = "none";
+    }
+
+    function inputInValue() {
+        // console.log( document.getElementById("inputValue").value);
+        loginBtn.disabled = document.getElementById("inputValue").value == null;
+    }
+    // $(function () {
+    //
+    // });
+    // if (typeof jQuery == "undefined"){
+    //     window.alert("jQuery引用失败")
+    // }else {
+    //     window.alert("jQuery引用成功")
     // }
 
     // 点击执行
     // 按钮变幻
-    btnWin.onclick = function () {
+    btnWin.onclick = () => {
         around = setInterval(interval('next'), time);
         btnCancel.style.display = "block";
         btnCancel.style.zIndex = "400";
@@ -692,10 +775,7 @@
         }
         cancelAround();
     };
-    confirm.onclick = function () {
-        oTooltips.style.display = "none";
-        btnCancel.style.display = "none";
-    }
+
 
 </script>
 </body>

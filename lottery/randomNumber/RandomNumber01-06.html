@@ -1,0 +1,421 @@
+<!--Created by LiDongL on 2020/01/08-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>随机抽取人员</title>
+    <script src="../Demo/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="../../lottery/Demo/jquery-3.4.1/jquery.min.js"></script>
+    <style>
+        body {
+            background-image: url("../Demo/img/timg (7).jpg");
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+
+        #container {
+            position: relative;
+            margin: 120px auto;
+            width: 400px;
+            height: 1px;
+            background-color: #e1bc7e;
+            overflow: hidden;
+        }
+        #overspread{
+            position: absolute;
+            top: 0px;
+            width: 99%;
+            height: 100%;
+            background-color: rgba(101, 101, 101, 0.6);
+            z-index: 100;
+            display: none;
+        }
+
+        .header {
+            text-align: center;
+            font-size: 24px;
+            height: 50px;
+            line-height: 50px;
+        }
+
+        #content {
+            width: 100%;
+            height: 300px;
+            margin-top: 10px;
+            background-color: #3a3a3a;
+            overflow: hidden;
+        }
+
+        .foot {
+            text-align: center;
+            margin: 0px auto;
+            position: absolute;
+            bottom: 15px;
+            left: 35px;
+        }
+
+        .btn {
+            width: 80px;
+            height: 30px;
+            color: #e1bc7e;
+            background-color: #3a3a3a;
+            border: none;
+            outline: none;
+        }
+       
+        #nameInput {
+            position: relative;
+            width: 50px;
+            height: 30px;
+            margin: -70px auto;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #111111;
+        }
+
+        #li {
+            line-height: 30px;
+            color: #e1bc7e;
+        }
+
+        #ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            left: 0;
+        }
+
+        #uls {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal {
+            position: relative;
+            display: none;
+            width: 400px;
+            height: 200px;
+            margin: -450px auto;
+            background-color: #fff4c1;
+            z-index: 100;
+            animation-name: slideIn;
+            animation-duration: 0.4s;
+        }
+     
+        @keyframes slideIn {
+            from {bottom: 0;opacity: 0}
+            to{bottom: 0;opacity: 1}
+        }
+
+        @keyframes slideIn {
+            from {opacity: 0}
+            to {opacity: 1}
+        }
+
+        .modal-header {
+            width: 100%;
+            height: 40px;
+            background-color: #e1bc7e;
+            font-size: 24px;
+            text-align: center;
+        }
+        .close{
+            font-size: 30px;
+            /*position: relative;*/
+            float: right;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            text-align: center;
+            line-height: 160px;
+        }
+
+        #inputValue {
+            height: 25px;
+            width: 200px;
+            outline: none;
+        }
+
+        #inputValue:active{
+            outline: none;
+        }
+
+        #addButton {
+            position: relative;
+            top: 1px;
+            height: 30px;
+            width: 80px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="overspread">
+        
+    </div>
+<div id="container">
+    <div class="header" id="winName">
+        年会抽奖
+    </div>
+    <div class="content" id="content">
+        <ul id="ul">
+            <li id="li">
+            </li>
+        </ul>
+        <ul id="uls">
+
+        </ul>
+    </div>
+    <div class="foot">
+        <button id="startBtn" class="btn">
+            抽奖
+        </button>
+        <button id="stopBtn" class="btn">
+            停止
+        </button>
+        <button id="openAdd" class="btn" onclick="alertBoxFn()">
+            添加
+        </button>
+        <button id="set" class="btn" onclick="setBoxFn()">
+            设置
+        </button>
+        <!-- <button onclick="onck()">
+            cookie
+        </button> -->
+    </div>
+</div>
+
+<div id="addModal" class="modal" onclick="outside=false">
+    <div class="modal-content">
+        <div class="modal-header">
+            添加人员
+            <span class="close"
+                  onclick="closes()"
+            >
+            &times;
+        </span>
+        </div>
+        <div class="modal-body">
+            <input id="inputValue" type="text" >
+            <button id="addButton" class="btn">
+                添加
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="setModal" class="modal" style="display: none;" >
+    <div class="modal-content">
+        <div class="modal-header">
+            奖项
+            <span class="close"
+                  onclick="closes()"
+            >
+            &times;
+        </span>
+        </div>
+        <div class="modal-body" style="line-height:30px; position: relative; top: 30px;">
+            <div class="setList">
+                奖项设置：
+                <input id="winValue" placeholder="请输入奖项"  value="年会抽奖">
+            </div>
+            <div  class="setList">
+                中奖人数：
+                <input id="peopleNumber" placeholder="最多10人，最少1人" value="10">
+            </div>
+            <button id="winSetBtn" class="btn" style="top:20px;" >
+                确定
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    let show = document.getElementById("content");
+    let winName = document.getElementById("winName");
+    let oul = document.getElementById("ul");
+    let uls = document.getElementById("uls");
+    let btn = document.getElementById("startBtn");
+    let stopBtn = document.getElementById("stopBtn");
+    let openAdd = document.getElementById("openAdd");
+    let modal = document.getElementById("addModal");
+    let set = document.getElementById("set");
+    let input = document.getElementById("inputValue");
+    let addButton = document.getElementById("addButton");
+    let setModal = document.getElementById("setModal");
+    document.cookie = "username = Derrick.Rose; expires = Jan 10, 2020 20:15:00 GMT " ;
+    let x = document.cookie; 
+    let d = new Date();
+    let name = [
+        "罗斯",
+        "詹姆斯",
+        "哈登", 
+        "保罗",
+        "卡特",
+        "格里芬",
+        "诺阿",
+        "邓肯",
+        "帕克",
+        "哈登",
+        "保罗",
+        "卡特",
+        "格里芬",
+        "诺阿",
+        "邓肯",
+    ];
+    let timer;
+    let style;
+    let rollNumber = 0;
+    let outside = true;
+
+    onck = () =>{
+        alert(d);
+    }
+
+    getList = () => { // 循环渲染出人员名单
+        let html = '';
+        for (let i = 0; i < name.length; i++) {
+            html += "<li id='li'>" + name[i] + "</li>";
+        }
+        oul.innerHTML = html;
+        uls.innerHTML = html;
+    };
+    getList();
+    
+    roll = () => { // 滚动事件，当scrollTop大于scrollHeight时置为零
+        style = window.getComputedStyle(show, null).height;
+        // console.log(style);
+        if (rollNumber >= 100) {
+            let oulTop = oul.style.top = 0 + 'px';
+            uls.style.top -= oulTop;
+            rollNumber = 0;
+            // console.log("变成0");
+        } else {
+            oul.style.top = -(rollNumber * 4) + 'px';
+            uls.style.top = -(rollNumber * 4) + 'px';
+            rollNumber++;
+            // console.log('增加');
+        }
+    };
+    
+    start = () => { // 开始按钮绑定事件
+        timer = setInterval(roll, 0); // >执行timer在setInterval方法中
+    };
+
+    stop = () => { // 停止按钮绑定事件
+        clearInterval(timer);
+        btn.addEventListener('click', start, false);
+    };
+
+    spread = () => { // 滑动加载抽奖界面
+        let container = document.getElementById("container");
+        let h = container.offsetHeight;
+        let maxHeight = 440;
+        let spreadTime = setInterval(heightAdd, 50);
+
+        function heightAdd() { //抽奖部分缓慢展开
+            h += 50;
+            if (h >= maxHeight) {
+                container.style.height = '440px';
+                clearInterval(spreadTime); // -> 停止展开
+            } else {
+                container.style.display = 'block';
+                container.style.height = h + 'px';
+            }
+        }
+    };
+
+    setTimeout(spread, 50);
+
+    getInputValue = () => { //获取输入框中的人名渲染到人员名单中
+        let inputValue = document.getElementById("inputValue").value;
+        name.unshift(inputValue);
+        console.log(inputValue);
+        addModal.style.display = "none";
+        overspread.style.display = "none";
+        console.log(name);
+        getList();
+    };
+
+    closes = () => { //点击关闭
+        addModal.style.display = "none";
+        setModal.style.display = "none";
+        overspread.style.display = "none";
+    };
+
+    addBoxFn = (e) =>{ //打开添加弹框
+        outside=false;
+        addModal.style.display = "block";
+        overspread.style.display = "block";
+    };
+    document.body.addEventListener('click',function () {
+        outside=true
+    },true);
+
+    // 点击madel之外关闭对话框
+    // document.body.addEventListener('click',function () {
+    //     if (outside) {
+    //         addModal.style.display = 'none';
+    //         // setModal.style.display = "none";
+    //     }
+    // }
+    // );
+
+    setBoxFn = (e) =>{ // 打开设置弹框
+        outside =false;
+        setModal.style.display = 'block';
+        overspread.style.display = "block";
+    };
+
+    winItemSet = () => { //奖项设置
+       let winValue = document.getElementById("winValue").value;
+       winName.innerHTML = winValue;
+    };
+
+    setWinNumber = () => { //设置中奖人数
+        let peopleNumber = document.getElementById("peopleNumber").value;
+        console.log(peopleNumber);
+        if (peopleNumber > 10 || peopleNumber < 1){ //如果输入的为大于10小于1 的数字时则报提示信息
+            alert("请输入1~10之间的数字")
+            setModal.style.display = "block"
+        }else { //否则执行数值输出
+            show.style.height = peopleNumber*30 + "px";
+            setModal.style.display = "none";
+            overspread.style.display = "none";
+        }
+    };
+    
+//     function uniq(array){
+//     var temp = []; //一个新的临时数组
+//     for(var i = 0; i < array.length; i++){
+//         if(temp.indexOf(array[i]) == -1){
+//             temp.push(array[i]);
+//         }
+//     }
+//     return temp;
+// }
+// var aa = [1,2,2,4,9,6,7,5,2,3,5,6,5];
+// console.log(uniq(aa));
+
+    set.addEventListener('click',setBoxFn,false);
+    openAdd.addEventListener('click', addBoxFn, false);
+    addButton.addEventListener('click', getInputValue, false);
+    btn.addEventListener('click', start, false);
+    stopBtn.addEventListener('click', stop, false);
+    winSetBtn.addEventListener('click',winItemSet,false);
+    winSetBtn.addEventListener('click',setWinNumber,false);
+
+    // 为按钮添加句柄
+
+</script>
+</body>
+</html>
