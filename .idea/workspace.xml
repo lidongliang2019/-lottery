@@ -2,23 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9fa23896-cc93-4174-a964-16e0d41f5da4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/lottery/.idea/lottery.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lottery/Demo/logicAchieve.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lottery/Demo/scrollHeight.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/lottery/lottery/demo3.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/lottery/lottery/indexs.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/lottery/randomNumber/RandomNumber01-06.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lottery/test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lottery/Demo/demo2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lottery/Demo/logicAchieve.html" beforeDir="false" afterPath="$PROJECT_DIR$/lottery/Demo/logicAchieve.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lottery/array.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lottery/lottery.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lottery/lottery/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/lottery/lottery/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lottery/lotteryDemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lottery/square.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lottery/显示不同.html" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,6 +37,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\抽奖\lottery\Demo" />
+      <recent name="F:\抽奖\logicAchieve" />
       <recent name="F:\抽奖\lottery\lottery" />
     </key>
   </component>
@@ -61,6 +53,16 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="RandomNumber01-06.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/抽奖/lottery/randomNumber/RandomNumber01-06.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.RandomNumber01-06.html" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -78,6 +80,7 @@
       <workItem from="1578041381538" duration="16272000" />
       <workItem from="1578275841358" duration="61718000" />
       <workItem from="1578398366115" duration="75590000" />
+      <workItem from="1578880480461" duration="42876000" />
     </task>
     <servers />
   </component>

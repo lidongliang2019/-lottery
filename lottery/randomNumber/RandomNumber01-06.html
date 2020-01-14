@@ -9,7 +9,7 @@
     <script src="../../lottery/Demo/jquery-3.4.1/jquery.min.js"></script>
     <style>
         body {
-            background-image: url("../Demo/img/timg (7).jpg");
+            background-image: url("../../logicAchieve/img/timg (7).jpg");
             background-size: 100%;
             background-repeat: no-repeat;
         }
@@ -22,7 +22,8 @@
             background-color: #e1bc7e;
             overflow: hidden;
         }
-        #overspread{
+
+        #overspread {
             position: absolute;
             top: 0px;
             width: 99%;
@@ -63,7 +64,7 @@
             border: none;
             outline: none;
         }
-       
+
         #nameInput {
             position: relative;
             width: 50px;
@@ -109,15 +110,25 @@
             animation-name: slideIn;
             animation-duration: 0.4s;
         }
-     
+
         @keyframes slideIn {
-            from {bottom: 0;opacity: 0}
-            to{bottom: 0;opacity: 1}
+            from {
+                bottom: 0;
+                opacity: 0
+            }
+            to {
+                bottom: 0;
+                opacity: 1
+            }
         }
 
         @keyframes slideIn {
-            from {opacity: 0}
-            to {opacity: 1}
+            from {
+                opacity: 0
+            }
+            to {
+                opacity: 1
+            }
         }
 
         .modal-header {
@@ -127,7 +138,8 @@
             font-size: 24px;
             text-align: center;
         }
-        .close{
+
+        .close {
             font-size: 30px;
             /*position: relative;*/
             float: right;
@@ -146,7 +158,7 @@
             outline: none;
         }
 
-        #inputValue:active{
+        #inputValue:active {
             outline: none;
         }
 
@@ -156,13 +168,13 @@
             height: 30px;
             width: 80px;
         }
-        
+
     </style>
 </head>
 <body>
-    <div id="overspread">
-        
-    </div>
+<div id="overspread">
+
+</div>
 <div id="container">
     <div class="header" id="winName">
         年会抽奖
@@ -183,15 +195,15 @@
         <button id="stopBtn" class="btn">
             停止
         </button>
-        <button id="openAdd" class="btn" onclick="alertBoxFn()">
+        <button id="openAdd" class="btn">
             添加
         </button>
         <button id="set" class="btn" onclick="setBoxFn()">
             设置
         </button>
-        <!-- <button onclick="onck()">
-            cookie
-        </button> -->
+        <!--        <button id="delBtn">-->
+        <!--            删除-->
+        <!--        </button>-->
     </div>
 </div>
 
@@ -206,7 +218,7 @@
         </span>
         </div>
         <div class="modal-body">
-            <input id="inputValue" type="text" >
+            <input id="inputValue" type="text">
             <button id="addButton" class="btn">
                 添加
             </button>
@@ -214,7 +226,7 @@
     </div>
 </div>
 
-<div id="setModal" class="modal" style="display: none;" >
+<div id="setModal" class="modal" style="display: none;">
     <div class="modal-content">
         <div class="modal-header">
             奖项
@@ -227,13 +239,13 @@
         <div class="modal-body" style="line-height:30px; position: relative; top: 30px;">
             <div class="setList">
                 奖项设置：
-                <input id="winValue" placeholder="请输入奖项"  value="年会抽奖">
+                <input id="winValue" placeholder="请输入奖项" value="年会抽奖">
             </div>
-            <div  class="setList">
+            <div class="setList">
                 中奖人数：
                 <input id="peopleNumber" placeholder="最多10人，最少1人" value="10">
             </div>
-            <button id="winSetBtn" class="btn" style="top:20px;" >
+            <button id="winSetBtn" class="btn" style="top:20px;">
                 确定
             </button>
         </div>
@@ -247,18 +259,18 @@
     let btn = document.getElementById("startBtn");
     let stopBtn = document.getElementById("stopBtn");
     let openAdd = document.getElementById("openAdd");
-    let modal = document.getElementById("addModal");
+    let addModal = document.getElementById("addModal");
     let set = document.getElementById("set");
     let input = document.getElementById("inputValue");
     let addButton = document.getElementById("addButton");
     let setModal = document.getElementById("setModal");
-    document.cookie = "username = Derrick.Rose; expires = Jan 10, 2020 20:15:00 GMT " ;
-    let x = document.cookie; 
-    let d = new Date();
+    let winSetBtn = document.getElementById("winSetBtn");
+    let overspread = document.getElementById("overspread");
+    let delBtn = document.getElementById("delBtn");
     let name = [
         "罗斯",
         "詹姆斯",
-        "哈登", 
+        "哈登",
         "保罗",
         "卡特",
         "格里芬",
@@ -272,14 +284,12 @@
         "诺阿",
         "邓肯",
     ];
+    let winNameNumber = [];
+    // console.log(name[0]);
     let timer;
     let style;
     let rollNumber = 0;
     let outside = true;
-
-    onck = () =>{
-        alert(d);
-    }
 
     getList = () => { // 循环渲染出人员名单
         let html = '';
@@ -290,7 +300,7 @@
         uls.innerHTML = html;
     };
     getList();
-    
+
     roll = () => { // 滚动事件，当scrollTop大于scrollHeight时置为零
         style = window.getComputedStyle(show, null).height;
         // console.log(style);
@@ -305,8 +315,9 @@
             rollNumber++;
             // console.log('增加');
         }
+        // scrollHandle();
     };
-    
+
     start = () => { // 开始按钮绑定事件
         timer = setInterval(roll, 0); // >执行timer在setInterval方法中
     };
@@ -314,6 +325,12 @@
     stop = () => { // 停止按钮绑定事件
         clearInterval(timer);
         btn.addEventListener('click', start, false);
+        // let visible = document.getElementById("container").scrollHeight;
+        // console.log(visible);
+        // if (oul >= visible){
+        //     name.splice(0,2);
+        //     console.log(name.splice(0,2));
+        // }
     };
 
     spread = () => { // 滑动加载抽奖界面
@@ -337,6 +354,11 @@
     setTimeout(spread, 50);
 
     getInputValue = () => { //获取输入框中的人名渲染到人员名单中
+        // if (typeof (Storage) !=="undefined"){
+        //     if (localStorage.delBtn){
+        //
+        //     }
+        // }
         let inputValue = document.getElementById("inputValue").value;
         name.unshift(inputValue);
         console.log(inputValue);
@@ -352,14 +374,14 @@
         overspread.style.display = "none";
     };
 
-    addBoxFn = (e) =>{ //打开添加弹框
-        outside=false;
+    addBoxFn = (e) => { //打开添加弹框
+        outside = false;
         addModal.style.display = "block";
         overspread.style.display = "block";
     };
-    document.body.addEventListener('click',function () {
-        outside=true
-    },true);
+    document.body.addEventListener('click', function () {
+        outside = true
+    }, true);
 
     // 点击madel之外关闭对话框
     // document.body.addEventListener('click',function () {
@@ -370,50 +392,50 @@
     // }
     // );
 
-    setBoxFn = (e) =>{ // 打开设置弹框
-        outside =false;
+    setBoxFn = (e) => { // 打开设置弹框
+        outside = false;
         setModal.style.display = 'block';
         overspread.style.display = "block";
     };
 
     winItemSet = () => { //奖项设置
-       let winValue = document.getElementById("winValue").value;
-       winName.innerHTML = winValue;
+        winName.innerHTML = document.getElementById("winValue").value;
     };
 
     setWinNumber = () => { //设置中奖人数
         let peopleNumber = document.getElementById("peopleNumber").value;
-        console.log(peopleNumber);
-        if (peopleNumber > 10 || peopleNumber < 1){ //如果输入的为大于10小于1 的数字时则报提示信息
-            alert("请输入1~10之间的数字")
+        if (peopleNumber > 10 || peopleNumber < 1) { //如果输入的为大于10小于1 的数字时则报提示信息
+            alert("请输入1~10之间的数字");
             setModal.style.display = "block"
-        }else { //否则执行数值输出
-            show.style.height = peopleNumber*30 + "px";
+        } else { //否则执行数值输出
+            show.style.height = peopleNumber * 30 + "px";
             setModal.style.display = "none";
             overspread.style.display = "none";
         }
     };
-    
-//     function uniq(array){
-//     var temp = []; //一个新的临时数组
-//     for(var i = 0; i < array.length; i++){
-//         if(temp.indexOf(array[i]) == -1){
-//             temp.push(array[i]);
-//         }
-//     }
-//     return temp;
-// }
-// var aa = [1,2,2,4,9,6,7,5,2,3,5,6,5];
-// console.log(uniq(aa));
 
-    set.addEventListener('click',setBoxFn,false);
+    // scrollHandle = () => {
+    //     let offset = document.getElementById("content");
+    //     let offsetTop = offset.top;
+    //     let offsetBottom = offset.bottom;
+    //     let offsetHeight = offset.height;
+    //     // let oulTop = oul.style.top = 0 + "px";
+    //     if (offsetTop <= offsetHeight && offsetBottom >= 0) {
+    //         console.log("进入可视范围内");
+    //     } else {
+    //         console.log("移出可视范围内");
+    //     }
+    // };
+
+    set.addEventListener('click', setBoxFn, false);
     openAdd.addEventListener('click', addBoxFn, false);
     addButton.addEventListener('click', getInputValue, false);
     btn.addEventListener('click', start, false);
     stopBtn.addEventListener('click', stop, false);
-    winSetBtn.addEventListener('click',winItemSet,false);
-    winSetBtn.addEventListener('click',setWinNumber,false);
-
+    winSetBtn.addEventListener('click', winItemSet, false);
+    winSetBtn.addEventListener('click', setWinNumber, false);
+    // show.addEventListener('scroll', scrollHandle, false);
+    // delBtn.addEventListener('click', getIndex, false);
     // 为按钮添加句柄
 
 </script>
