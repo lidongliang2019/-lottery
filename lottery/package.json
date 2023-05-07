@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/lidongliang2019/-js#readme",
   "dependencies": {
-    "axios": "^0.19.0"
+    "axios": "^0.21.2"
   }
 }
